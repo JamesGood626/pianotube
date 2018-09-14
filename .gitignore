@@ -4,5 +4,6 @@ node_modules
 yarn-error.log
 
 # Build directory
+/config
 /public
 .DS_Store

@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-// These widths affect the video width.
-// However, I've yet to find a solution that doesn't
-// cut off a portion of the video during resizing.
 const VideoSection = styled.div`
   position: relative;
   z-index: 0;
-  height: 0;
+  height: 45.15vw;
+  min-height: 16.91rem;
+  max-height: 28.15rem;
   width: 70vw;
   min-width: 30rem;
   max-width: 50rem;
@@ -32,7 +31,6 @@ const VideoPlayer = styled.div`
     width: 100%;
   }
 `
-
 export default React.forwardRef((props, ref) => {
   return (
     <VideoSection>

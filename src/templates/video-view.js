@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Layout from '../components/layout'
 import YouTubePlayer from 'youtube-player'
 import VideoSection from '../components/video-section'
+import VideoControls from '../components/video-controls'
 
 const MainContainer = styled.div`
   display: flex;
@@ -16,9 +17,9 @@ export default class VideoView extends Component {
   componentDidMount = async () => {
     console.log('Mounting VideoView')
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
-    await this.setState({ player: YouTubePlayer(this.videoPlayer) })
-    this.state.player.loadVideoById(videoId)
-    console.log(this.state.player)
+    // await this.setState({ player: YouTubePlayer(this.videoPlayer) })
+    // this.state.player.loadVideoById(videoId)
+    // console.log(this.state.player)
   }
 
   render() {
@@ -26,6 +27,7 @@ export default class VideoView extends Component {
       <Layout>
         <MainContainer>
           <VideoSection ref={x => (this.videoPlayer = x)} />
+          <VideoControls />
         </MainContainer>
       </Layout>
     )

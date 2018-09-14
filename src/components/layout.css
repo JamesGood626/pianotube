@@ -11,6 +11,7 @@ body {
   min-height: 100vh;
   font-family: saira;
   font-weight: 300;
+  overflow-x: hidden;
 }
 
 *,

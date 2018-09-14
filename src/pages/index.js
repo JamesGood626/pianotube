@@ -3,13 +3,33 @@ import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
+const mapPlaylists = edges => {
+  return edges.map(edge => {
+    return (
+      <Link key={edge.node.slug} to={`/${edge.node.slug}/`}>
+        <div>{edge.node.collectionName}</div>
+      </Link>
+    )
+  })
+}
+
+const IndexPage = ({ data, location }) => (
+  <Layout locationPathname={location.pathname}>
+    <div>{mapPlaylists(data.allContentfulCategories.edges)}</div>
   </Layout>
 )
 
 export default IndexPage
+
+export const query = graphql`
+  query {
+    allContentfulCategories {
+      edges {
+        node {
+          slug
+          collectionName
+        }
+      }
+    }
+  }
+`

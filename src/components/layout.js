@@ -13,7 +13,7 @@ const Div = styled.div`
   background: lime;
 `
 
-const Layout = ({ children }) => (
+const Layout = ({ children, locationPathname }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -35,7 +35,10 @@ const Layout = ({ children }) => (
         >
           <html lang="en" />
         </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
+        <Header
+          locationPathname={locationPathname}
+          siteTitle={data.site.siteMetadata.title}
+        />
         <Div>{children}</Div>
       </>
     )}

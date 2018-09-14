@@ -6,6 +6,14 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.SPACE_ID || require('./config/keys').SPACE_ID,
+        accessToken:
+          process.env.ACCESS_TOKEN || require('./config/keys').ACCESS_TOKEN,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: 'gatsby-starter-default',

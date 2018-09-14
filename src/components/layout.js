@@ -8,7 +8,11 @@ import Header from './header'
 import './layout.css'
 
 const Div = styled.div`
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 100vh;
   width: 100vw;
 `
 

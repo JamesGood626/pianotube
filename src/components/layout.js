@@ -10,7 +10,6 @@ import './layout.css'
 const Div = styled.div`
   height: 100vh;
   width: 100vw;
-  background: lime;
 `
 
 const Layout = ({ children, locationPathname }) => (
@@ -34,6 +33,10 @@ const Layout = ({ children, locationPathname }) => (
           ]}
         >
           <html lang="en" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Saira:300,400,600"
+            rel="stylesheet"
+          />
         </Helmet>
         <Header
           locationPathname={locationPathname}

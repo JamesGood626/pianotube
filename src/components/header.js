@@ -9,16 +9,21 @@ const ContainerDiv = styled.div`
   height: 6rem;
   padding-left: 5vw;
   padding-right: 5vw;
+  background: #fcfffc;
+
+  @media (max-width: 640px) {
+    justify-content: center;
+  }
 `
 
 const Header = ({ siteTitle }) => (
   <ContainerDiv>
     <div>
-      <h1 style={{ margin: 0 }}>
+      <h1 style={{ fontSize: '2.4rem', margin: 0 }}>
         <Link
           to="/"
           style={{
-            color: '#FCFFFC',
+            color: '#085078',
             textDecoration: 'none',
           }}
         >

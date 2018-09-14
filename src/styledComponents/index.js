@@ -1,5 +1,21 @@
 import styled from 'styled-components'
 
+export const H2 = styled.h2`
+  position: relative;
+  font-size: 1.8rem;
+  color: #fcfffc;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 110%;
+    left: 2.2%;
+    width: 7rem;
+    height: 0.2rem;
+    background: #fcfffc;
+  }
+`
+
 export const PlaylistsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -7,6 +23,10 @@ export const PlaylistsContainer = styled.div`
   height: 100%;
   width: 90vw;
   padding-top: 1rem;
+
+  @media (max-width: 640px) {
+    justify-content: center;
+  }
 `
 
 export const VideoListing = styled.div`
@@ -16,7 +36,9 @@ export const VideoListing = styled.div`
   justify-content: space-between;
   height: 8rem;
   min-height: 8rem;
-  width: 28rem;
+  max-width: 28rem;
+  width: 40vw;
+  min-width: 18rem;
   padding: 0.8rem;
   padding-top: 0;
   margin-bottom: 2rem;
@@ -32,7 +54,9 @@ export const VideoListing = styled.div`
     top: 0;
     left: 0;
     height: 8rem;
-    width: 28rem;
+    max-width: 28rem;
+    width: 40vw;
+    min-width: 18rem;
 
     /* Create the box shadow at expanded size. */
     box-shadow: 0 0 10px 2px #72e1d1;

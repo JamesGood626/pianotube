@@ -3,6 +3,49 @@ import styled from 'styled-components'
 import Layout from '../components/layout'
 import YouTubePlayer from 'youtube-player'
 
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background: linear-gradient(60deg, #085078, #182848);
+`
+
+const VideoSection = styled.section`
+  display: flex;
+  justify-content: center;
+  height: 45.15vw;
+  min-height: 16.91rem;
+  max-height: 28.15rem;
+  width: 100vw;
+`
+
+const VideoContainer = styled.div`
+  position: relative;
+  z-index: 0;
+  width: 80%;
+  /* Will have to adjust min-width w/ media queries to accomodate mobile */
+  /* This is for desktop */
+  min-width: 30rem;
+  max-width: 50rem;
+  height: 0;
+`
+
+const VideoHolder = styled.div`
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  width: 100%;
+`
+
+const VideoPlayer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+`
+
 export default class VideoView extends Component {
   componentDidMount = async () => {
     console.log('Mounting VideoView')
@@ -14,12 +57,8 @@ export default class VideoView extends Component {
 
   render() {
     return (
-      <Layout locationPathname={this.props.location.pathname}>
+      <Layout>
         <div class="main-container">
-          <nav>
-            <a href="/">List</a>
-            <a href="/view">View</a>
-          </nav>
           <section class="video-section">
             <div class="video-container">
               <div class="video-holder">

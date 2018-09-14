@@ -2,31 +2,35 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout'
+import { PlaylistsContainer, VideoListing, H2 } from '../styledComponents'
 
-const SectionContainer = styled.section`
-  width: 90vw;
+const H2Adjusted = H2.extend`
+  &::after {
+    width: 5rem;
+  }
 `
 
 const mapVideos = edges => {
   return edges.map(edge => {
     return (
-      <div>
-        <Link
-          key={edge.node.videoId}
-          to={`/${edge.node.slug}/${edge.node.videoId}`}
-        >
-          <div>{edge.node.videoName}</div>
-        </Link>
-      </div>
+      <Link
+        key={edge.node.videoId}
+        to={`/${edge.node.slug}/${edge.node.videoId}`}
+      >
+        <VideoListing>
+          <h3>{edge.node.videoName}</h3>
+        </VideoListing>
+      </Link>
     )
   })
 }
 
 const PostCategoryList = ({ data, location }) => (
   <Layout locationPathname={location.pathname}>
-    <SectionContainer>
+    <H2Adjusted>Songs</H2Adjusted>
+    <PlaylistsContainer>
       {mapVideos(data.allContentfulPianoVideo.edges)}
-    </SectionContainer>
+    </PlaylistsContainer>
   </Layout>
 )
 

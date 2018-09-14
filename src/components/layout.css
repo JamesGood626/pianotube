@@ -8,6 +8,7 @@ body {
   padding: 0;
   background: linear-gradient(60deg, #085078, #182848);
   height: 100%;
+  min-height: 100vh;
   font-family: saira;
   font-weight: 300;
 }
@@ -20,6 +21,54 @@ body {
 
 iframe {
   box-sizing: border-box;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background: lime;
+}
+
+/* video-section styles necessary for pushing down the */
+/* video controls just beneath the video container... due to it's */
+/* set height of zero to accomodate aspect ratio */
+.video-section {
+  display: flex;
+  justify-content: center;
+  height: 45.15vw;
+  min-height: 16.91rem;
+  max-height: 28.15rem;
+  width: 100vw;
+}
+
+.video-container {
+  position: relative;
+  z-index: 0;
+  width: 80%;
+  /* Will have to adjust min-width w/ media queries to accomodate mobile */
+  /* This is for desktop */
+  min-width: 25rem;
+  max-width: 50rem;
+  height: 0;
+  background: blue;
+  padding-bottom: 2rem;
+}
+
+.video-holder {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  width: 100%;
+}
+
+#video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 /* article,

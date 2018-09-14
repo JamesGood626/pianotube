@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout'
-import { PlaylistsContainer, VideoListing } from '../styledComponents'
+import { PlaylistsContainer, VideoListing, H2 } from '../styledComponents'
 
 const mapPlaylists = edges => {
   return edges.map(edge => {
@@ -18,6 +18,7 @@ const mapPlaylists = edges => {
 
 const IndexPage = ({ data, location }) => (
   <Layout locationPathname={location.pathname}>
+    <H2>Playlists</H2>
     <PlaylistsContainer>
       {mapPlaylists(data.allContentfulCategories.edges)}
     </PlaylistsContainer>

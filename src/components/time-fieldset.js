@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
 
@@ -11,7 +11,7 @@ const Container = styled.div`
   }
 `
 
-const Fieldset = styled.fieldset`
+export const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
   width: 11rem;
@@ -33,7 +33,7 @@ const Fieldset = styled.fieldset`
   }
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 2.2rem;
   height: 2.2rem;
   font-size: 1.1rem;

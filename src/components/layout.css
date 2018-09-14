@@ -83,6 +83,7 @@ iframe {
   height: 20px;
   min-height: 20px;
   font-size: 0;
+  margin-top: -0.8rem;
   margin-left: -1.95rem;
 }
 
@@ -101,7 +102,7 @@ iframe {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #fcfffc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   width: 10rem;
@@ -116,13 +117,17 @@ iframe {
   width: 42px;
   left: 4px;
   bottom: 4px;
-  background-color: #fcfffc;
+  background-color: #085078;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 input:checked + .slider {
   background-color: #72e1d1;
+}
+
+input:checked + .slider:before {
+  background: #fcfffc;
 }
 
 input:focus + .slider {

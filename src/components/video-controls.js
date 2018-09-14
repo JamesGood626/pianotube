@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import TimeFieldset from './time-fieldset'
+import CheckboxSlider from './checkbox-slider'
 
 const Form = styled.form`
   display: flex;
@@ -17,6 +18,7 @@ export default () => {
     <Form>
       <TimeFieldset legendText="Start Loop Time:" />
       <TimeFieldset legendText="End Loop Time:" />
+      <CheckboxSlider />
     </Form>
   )
 }

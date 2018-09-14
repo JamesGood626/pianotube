@@ -14,7 +14,7 @@ const Container = styled.div`
 const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
-  width: 12rem;
+  width: 11rem;
   height: 100%;
   border: none;
   // background: blue;
@@ -52,13 +52,17 @@ export default ({ legendText }) => {
   return (
     <Container>
       <Fieldset>
-        <legend>{legendText}</legend>
+        <legend tabIndex={0}>{legendText}</legend>
         <span>
-          <label for="seconds">Minute:</label>
+          <label tabIndex={0} for="seconds">
+            Minute:
+          </label>
           <Input type="text" name="seconds" />
         </span>
         <span>
-          <label for="seconds">Seconds:</label>
+          <label tabIndex={0} for="seconds">
+            Seconds:
+          </label>
           <Input type="text" name="seconds" />
         </span>
       </Fieldset>

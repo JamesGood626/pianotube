@@ -73,6 +73,79 @@ iframe {
   width: 100%;
 }
 
+/* Start of the checkbox slider styles */
+
+/* switch is the label */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 20px;
+  min-height: 20px;
+  font-size: 0;
+  margin-left: -1.95rem;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch:focus {
+  outline: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  width: 10rem;
+  /* Will use media query to rotate it back to normal for mobile */
+  transform: rotateZ(90deg);
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 12px;
+  width: 42px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fcfffc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #72e1d1;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(110px);
+  -ms-transform: translateX(110px);
+  transform: translateX(110px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 34px;
+}
+
+/* End of the checkbox slider styles */
+
 /* article,
 aside,
 details,

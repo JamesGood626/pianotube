@@ -10,7 +10,7 @@ const Button = styled.button`
   background: #fcfffc;
 `
 
-export default ({ legendText }) => {
+export default ({ legendText, handleShiftTime }) => {
   return (
     <Container>
       <Fieldset>
@@ -19,10 +19,17 @@ export default ({ legendText }) => {
           <label tabIndex={0} htmlFor="seconds">
             Seconds:
           </label>
-          <Input type="text" name="seconds" />
+          <Input
+            id="shift-time-input"
+            type="text"
+            name="seconds"
+            onChange={handleShiftTime}
+          />
         </span>
         <span>
-          <Button>Shift</Button>
+          <Button id="shift-time-btn" onClick={handleShiftTime}>
+            Shift
+          </Button>
         </span>
       </Fieldset>
     </Container>

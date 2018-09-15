@@ -41,69 +41,6 @@ const H3 = styled.h3`
   }
 `
 
-// const checkValidLoopTimes = state => {
-//   const { startLoopAtTime, endLoopAtTime } = state
-//   const startHasMinute = startLoopAtTime.minute > 0 ? true : false
-//   const startHasSeconds = startLoopAtTime.seconds > 0 ? true : false
-//   const endHasMinute = endLoopAtTime.minute > 0 ? true : false
-//   const endHasSeconds = endLoopAtTime.minute > 0 ? true : false
-//   if (startHasMinute) {
-//     if (!endHasMinute || endLoopAtTime.minute < startLoopAtTime.minute) {
-//       return false
-//     } else {
-//       return startAndEndTimeConvertedToSeconds(startLoopAtTime, endLoopAtTime)
-//     }
-//   }
-//   if (startHasSeconds) {
-//     if (!endHasSeconds || endLoopAtTime.seconds < startLoopAtTime.seconds) {
-//       return {
-//         startTime: startLoopAtTime.seconds,
-//         endTime: endLoopAtTime.seconds,
-//       }
-//     }
-//   }
-//   return false
-// }
-
-// const startAndEndTimeConvertedToSeconds = (startLoopAtTime, endLoopAtTime) => {
-//   const startMinutes = parseInt(startLoopAtTime.minute)
-//   const startSeconds = parseInt(startLoopAtTime.seconds)
-//   const startLoopAtTimeConverted =
-//     startSeconds > 0 ? startMinutes * 60 + startSeconds : startMinutes * 60
-//   const endMinutes = parseInt(endLoopAtTime.minute)
-//   const endSeconds = parseInt(endLoopAtTime.seconds)
-//   const endLoopAtTimeConverted =
-//     endSeconds > 0 ? endMinutes * 60 + endSeconds : endMinutes * 60
-
-//   return {
-//     startTime: startLoopAtTimeConverted,
-//     endTime: endLoopAtTimeConverted,
-//   }
-// }
-
-const checkValidLoopTimesTwo = state => {
-  const { startLoopAtTimeConverted, endLoopAtTimeConverted } = state
-  console.log('CHECK VALID LOOP TIMES')
-  console.log(startLoopAtTimeConverted)
-  console.log(endLoopAtTimeConverted)
-  if (startLoopAtTimeConverted < endLoopAtTimeConverted) {
-    return true
-  }
-}
-
-// const timeDifferenceAdjusted = (newTime, prevTime) => {
-//   let difference
-//   console.log(typeof newTime)
-//   console.log(typeof prevTime)
-//   if (prevTime < newTime) {
-//     difference = newTime + prevTime
-//     return difference
-//   } else if (prevTime > newTime) {
-//     difference = prevTime - newTime
-//     return difference
-//   }
-// }
-
 // props: player, the youtube-player instance, from video-view.js
 export default class VideoControls extends Component {
   state = {
@@ -120,6 +57,7 @@ export default class VideoControls extends Component {
     },
     startLoopAtTimeConverted: null,
     endLoopAtTimeConverted: null,
+    shiftTime: null,
   }
 
   componentDidUpdate = async (prevProps, prevState) => {
@@ -218,7 +156,6 @@ export default class VideoControls extends Component {
   }
 
   handleLoopToggle = e => {
-    console.log('HANDLING TOGGLE')
     const { startLoopAtTimeConverted } = this.state
     if (e.target.checked) {
       this.setListenInterval(startLoopAtTimeConverted)
@@ -255,21 +192,58 @@ export default class VideoControls extends Component {
     }
   }
 
+  handleShiftTime = e => {
+    console.log('SHIFTIN')
+    e.preventDefault()
+    const { id, value } = e.target
+    const updateValue = value !== '' ? parseInt(value) : null
+    console.log('THE UPDATE VALUE: ', updateValue)
+    if (id === 'shift-time-input') {
+      this.setState({
+        shiftTime: updateValue,
+      })
+    } else if (id === 'shift-time-btn') {
+      if (typeof this.state.shiftTime === 'number') {
+        this.updateLoopRange()
+      }
+    }
+  }
+
+  updateLoopRange = () => {
+    const {
+      shiftTime,
+      startLoopAtTimeConverted,
+      endLoopAtTimeConverted,
+    } = this.state
+    const newStart = startLoopAtTimeConverted + shiftTime
+    const newEnd = endLoopAtTimeConverted + shiftTime
+    this.setState({
+      startLoopAtTimeConverted: newStart,
+      endLoopAtTimeConverted: newEnd,
+    })
+  }
+
   notifyEnterValidLoopTimes = e => {
-    console.log('CLICKED!')
     this.setState({
       invalidLoopTimeError: 'You must enter a time range to loop over.',
     })
   }
 
+  // That validTimeEntered is messy, figure out a better place to handle that.
+  // Can use checkValidLoopInterval and breka up each of the checks inside of it
+  // into individual functions. then place the truth/false result on state and pass it in
+  // to the CheckboxSlider.
   render() {
     const {
+      duration,
       invalidLoopTimeError,
       startLoopAtTimeConverted,
       endLoopAtTimeConverted,
     } = this.state
     const validTimeEntered =
-      startLoopAtTimeConverted !== null && endLoopAtTimeConverted !== null
+      startLoopAtTimeConverted !== null &&
+      endLoopAtTimeConverted !== null &&
+      (startLoopAtTimeConverted < duration && endLoopAtTimeConverted < duration)
         ? true
         : false
     return (
@@ -294,7 +268,10 @@ export default class VideoControls extends Component {
             notifyEnterValidLoopTimes={this.notifyEnterValidLoopTimes}
             ref={x => (this.checkboxSlider = x)}
           />
-          <TimeShiftFieldset legendText="Shift Loop Time:" />
+          <TimeShiftFieldset
+            legendText="Shift Loop Time:"
+            handleShiftTime={this.handleShiftTime}
+          />
         </Form>
       </Container>
     )

@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import Header from './header'
 import './layout.css'
 
-const Div = styled.div`
+const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +46,7 @@ const Layout = ({ children, locationPathname }) => (
           locationPathname={locationPathname}
           siteTitle={data.site.siteMetadata.title}
         />
-        <Div>{children}</Div>
+        <Main>{children}</Main>
       </>
     )}
   />

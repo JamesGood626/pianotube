@@ -41,6 +41,7 @@ export const Input = styled.input`
   border: 2px solid #fcfffc;
   color: #fcfffc;
   text-align: center;
+  font-family: saira;
 
   &:focus {
     outline: none;

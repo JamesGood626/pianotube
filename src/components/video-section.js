@@ -5,11 +5,11 @@ const VideoSection = styled.div`
   position: relative;
   z-index: 0;
   height: 45.15vw;
-  min-height: 16.91rem;
-  max-height: 28.15rem;
-  width: 70vw;
-  min-width: 30rem;
-  max-width: 50rem;
+  min-height: 10.5rem;
+  max-height: 22.15rem;
+  width: 80%;
+  min-width: 19rem;
+  max-width: 40rem;
 `
 
 const VideoHolder = styled.div`
@@ -23,13 +23,8 @@ const VideoHolder = styled.div`
 
 const VideoPlayer = styled.div`
   position: absolute;
-  height: 80%;
-  width: 80%;
-
-  @media (min-width: 600px) {
-    height: 100%;
-    width: 100%;
-  }
+  height: 100%;
+  width: 100%;
 `
 export default React.forwardRef((props, ref) => {
   return (

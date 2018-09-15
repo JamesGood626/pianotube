@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const ContainerDiv = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 6rem;
   padding-left: 5vw;
   padding-right: 5vw;

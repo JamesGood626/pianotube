@@ -10,16 +10,21 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 100vw;
   margin-top: 4rem;
 `
 
 export default class VideoView extends Component {
+  state = {
+    player: null,
+    videoId: null,
+  }
+
   componentDidMount = async () => {
-    console.log('Mounting VideoView')
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
-    // await this.setState({ player: YouTubePlayer(this.videoPlayer) })
-    // this.state.player.loadVideoById(videoId)
-    // console.log(this.state.player)
+    const player = YouTubePlayer(this.videoPlayer)
+    player.loadVideoById(videoId)
+    this.setState({ player, videoId })
   }
 
   render() {
@@ -27,12 +32,14 @@ export default class VideoView extends Component {
       <Layout>
         <MainContainer>
           <VideoSection ref={x => (this.videoPlayer = x)} />
-          <VideoControls />
+          <VideoControls player={this.state.player} />
         </MainContainer>
       </Layout>
     )
   }
 }
+// Will have VideoListing component beneath controls, which will enable
+// videoId to be updated on state in order to update current video.
 
 export const query = graphql`
   query($videoId: String!) {

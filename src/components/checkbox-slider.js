@@ -12,14 +12,24 @@ const Container = styled.div`
   }
 `
 
-export default ({ handleLoopToggle }) => {
-  return (
-    <Container>
-      <label tabIndex={0} className="switch">
-        Toggle Loop Checkbox
-        <input type="checkbox" onChange={handleLoopToggle} />
-        <span className="slider round" />
-      </label>
-    </Container>
-  )
-}
+export default React.forwardRef(
+  ({ validTimeEntered, handleLoopToggle, notifyEnterValidLoopTimes }, ref) => {
+    return (
+      <Container>
+        <label
+          tabIndex={0}
+          className="switch"
+          onClick={!validTimeEntered ? notifyEnterValidLoopTimes : null}
+        >
+          Toggle Loop Checkbox
+          {validTimeEntered ? (
+            <input type="checkbox" ref={ref} onChange={handleLoopToggle} />
+          ) : (
+            <input type="checkbox" disabled ref={ref} />
+          )}
+          <span className="slider round" />
+        </label>
+      </Container>
+    )
+  }
+)

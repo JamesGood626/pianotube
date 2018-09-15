@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const VideoSection = styled.div`
-  position: relative;
   z-index: 0;
   height: 45.15vw;
   min-height: 10.5rem;

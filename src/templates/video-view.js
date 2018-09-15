@@ -6,6 +6,7 @@ import VideoSection from '../components/video-section'
 import VideoControls from '../components/video-controls'
 
 const MainContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

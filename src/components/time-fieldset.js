@@ -49,22 +49,32 @@ export const Input = styled.input`
   }
 `
 
-export default ({ legendText }) => {
+export default ({ legendText, className, handleInputChange }) => {
   return (
     <Container>
       <Fieldset>
         <legend tabIndex={0}>{legendText}</legend>
         <span>
-          <label tabIndex={0} for="seconds">
+          <label tabIndex={0} htmlFor="minute">
             Minute:
           </label>
-          <Input type="text" name="seconds" />
+          <Input
+            className={className}
+            type="text"
+            name="minute"
+            onChange={handleInputChange}
+          />
         </span>
         <span>
-          <label tabIndex={0} for="seconds">
+          <label tabIndex={0} htmlFor="seconds">
             Seconds:
           </label>
-          <Input type="text" name="seconds" />
+          <Input
+            className={className}
+            type="text"
+            name="seconds"
+            onChange={handleInputChange}
+          />
         </span>
       </Fieldset>
     </Container>

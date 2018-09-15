@@ -12,13 +12,13 @@ const Container = styled.div`
   }
 `
 
-export default () => {
+export default ({ handleLoopToggle }) => {
   return (
     <Container>
-      <label tabIndex={0} class="switch">
+      <label tabIndex={0} className="switch">
         Toggle Loop Checkbox
-        <input type="checkbox" />
-        <span class="slider round" />
+        <input type="checkbox" onChange={handleLoopToggle} />
+        <span className="slider round" />
       </label>
     </Container>
   )

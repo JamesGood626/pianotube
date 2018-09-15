@@ -16,7 +16,7 @@ export default ({ legendText }) => {
       <Fieldset>
         <legend tabIndex={0}>{legendText}</legend>
         <span>
-          <label tabIndex={0} for="seconds">
+          <label tabIndex={0} htmlFor="seconds">
             Seconds:
           </label>
           <Input type="text" name="seconds" />

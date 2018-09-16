@@ -16,13 +16,21 @@ const Main = styled.main`
   width: 100vw;
 `
 
-const Layout = ({ children, locationPathname }) => (
+const Layout = ({ children, currentView }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
         site {
           siteMetadata {
             title
+          }
+        }
+        allContentfulPianoVideo {
+          edges {
+            node {
+              videoId
+              videoName
+            }
           }
         }
       }
@@ -42,11 +50,12 @@ const Layout = ({ children, locationPathname }) => (
             rel="stylesheet"
           />
         </Helmet>
-        <Header
-          locationPathname={locationPathname}
-          siteTitle={data.site.siteMetadata.title}
-        />
-        <Main>{children}</Main>
+        <Header siteTitle={data.site.siteMetadata.title} />
+        {currentView === 'video-view' ? (
+          <Main>{children(data.allContentfulPianoVideo.edges)}</Main>
+        ) : (
+          <Main>{children}</Main>
+        )}
       </>
     )}
   />

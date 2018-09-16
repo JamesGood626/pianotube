@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import YouTubePlayer from 'youtube-player'
 import VideoSection from '../components/video-section'
 import VideoControls from '../components/video-controls'
+import VideoSearch from '../components/video-search'
 
 const MainContainer = styled.div`
   position: relative;
@@ -22,6 +23,7 @@ export default class VideoView extends Component {
   }
 
   componentDidMount = async () => {
+    console.log('THIS PROPS DATA: ', this.props.data)
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
     const player = YouTubePlayer(this.videoPlayer)
     player.loadVideoById(videoId)
@@ -30,11 +32,14 @@ export default class VideoView extends Component {
 
   render() {
     return (
-      <Layout>
-        <MainContainer>
-          <VideoSection ref={x => (this.videoPlayer = x)} />
-          <VideoControls player={this.state.player} />
-        </MainContainer>
+      <Layout currentView={'video-view'}>
+        {edges => (
+          <MainContainer>
+            <VideoSection ref={x => (this.videoPlayer = x)} />
+            <VideoControls player={this.state.player} />
+            <VideoSearch videoData={edges} />
+          </MainContainer>
+        )}
       </Layout>
     )
   }
@@ -48,7 +53,6 @@ export const query = graphql`
       edges {
         node {
           videoId
-          videoName
         }
       }
     }

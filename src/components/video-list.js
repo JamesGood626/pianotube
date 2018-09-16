@@ -2,7 +2,16 @@ import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import VideoSearch from './video-search'
+import PaginationControls from './pagination-controls'
 import { PlaylistsContainer, VideoListing } from '../styledComponents'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 4rem;
+`
 
 const renderVideoList = (videoDataArr, currentVideoId, handleChangeVideo) => {
   return videoDataArr.map(
@@ -32,7 +41,6 @@ const createPaginationArrays = (videoArr, pageCount, pageSize) => {
   let pageStart = 0
   let pageEnd = pageSize
   return videoArr.reduce((acc, video, i) => {
-    console.log('GOT i: ', i)
     if (pageStart < i && pageEnd >= i) {
       const currentPage = pageEnd / pageSize
       // this if else can certainly be broken out into a smaller function
@@ -63,9 +71,9 @@ const createPaginationArrays = (videoArr, pageCount, pageSize) => {
 
 export default class VideoList extends Component {
   state = {
-    currentPage: 0,
+    currentPage: 1,
     numberOfPages: 0,
-    pages: {},
+    pages: null,
   }
 
   componentDidMount = () => {
@@ -74,26 +82,61 @@ export default class VideoList extends Component {
     const pageCount = determineRequiredPages(videoData)
     const paginationArrays = createPaginationArrays(videoData, pageCount, 9)
     console.log('THE PAGINATION ARRAYS!!! :', paginationArrays)
+    this.setState({
+      numberOfPages: pageCount,
+      pages: paginationArrays,
+    })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log('UPDATING VIDEO LIST STATE: ', this.state)
   }
 
   handleFilterVideos = e => {
     console.log('FILTER VIDEOS E: ', e)
   }
 
+  setStatePageForward = () => {
+    if (this.state.currentPage + 1 <= this.state.numberOfPages) {
+      this.setState((prevState, state) => ({
+        currentPage: prevState.currentPage + 1,
+      }))
+    }
+  }
+
+  setStatePageBackward = () => {
+    if (this.state.currentPage - 1 !== 0) {
+      this.setState((prevState, state) => ({
+        currentPage: prevState.currentPage - 1,
+      }))
+    }
+  }
+
+  handleChangePage = e => {
+    const { id } = e.target
+    if (id === 'forwards') {
+      this.setStatePageForward()
+    } else if (id === 'backwards') {
+      this.setStatePageBackward()
+    }
+  }
+
   render() {
+    const { pages, currentPage } = this.state
     return (
-      <div>
+      <Container>
         <VideoSearch handleFilterVideos={this.handleFilterVideos} />
         <PlaylistsContainer>
-          {renderVideoList(
-            this.props.videoData,
-            this.props.currentVideoId,
-            this.props.handleChangeVideo
-          )}
+          {pages !== null
+            ? renderVideoList(
+                pages[currentPage],
+                this.props.currentVideoId,
+                this.props.handleChangeVideo
+              )
+            : null}
         </PlaylistsContainer>
-      </div>
+        <PaginationControls handleChangePage={this.handleChangePage} />
+      </Container>
     )
   }
 }
-
-// <PaginationControls />

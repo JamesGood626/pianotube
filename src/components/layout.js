@@ -16,6 +16,8 @@ const Main = styled.main`
   width: 100vw;
 `
 
+// I could probably just as well implment the search functionality
+// in the header... That way it'll be available all throughout the site.
 const Layout = ({ children, currentView }) => (
   <StaticQuery
     query={graphql`

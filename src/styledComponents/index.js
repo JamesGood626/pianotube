@@ -19,9 +19,9 @@ export const H2 = styled.h2`
 export const PlaylistsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
-  width: 90vw;
+  width: 80vw;
   padding-top: 1rem;
 
   @media (max-width: 640px) {
@@ -41,7 +41,7 @@ export const VideoListing = styled.div`
   min-width: 18rem;
   padding: 0.8rem;
   padding-top: 0;
-  margin-bottom: 2rem;
+  margin: 0 1rem 2rem 1rem;
   font-family: saira;
   color: #fcfffc;
   border: 1px solid #fcfffc;

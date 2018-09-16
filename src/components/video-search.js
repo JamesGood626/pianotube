@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default ({ videoData }) => {
-  console.log('THE VIDEO DATA!!! ', videoData)
+export default () => {
   return (
     <div>
-      <h1>Search Bar</h1>
+      <h1>VideoSearch!</h1>
     </div>
   )
 }

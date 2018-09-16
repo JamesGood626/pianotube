@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/layout'
 import YouTubePlayer from 'youtube-player'
 import VideoSection from '../components/video-section'
 import VideoControls from '../components/video-controls'
-import VideoSearch from '../components/video-search'
+import VideoList from '../components/video-list'
 
 const MainContainer = styled.div`
   position: relative;
@@ -16,10 +16,10 @@ const MainContainer = styled.div`
   margin-top: 4rem;
 `
 
-export default class VideoView extends Component {
+export default class VideoView extends PureComponent {
   state = {
     player: null,
-    videoId: null,
+    currentVideoId: null,
   }
 
   componentDidMount = async () => {
@@ -27,7 +27,17 @@ export default class VideoView extends Component {
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
     const player = YouTubePlayer(this.videoPlayer)
     player.loadVideoById(videoId)
-    this.setState({ player, videoId })
+    this.setState({ player, currentVideoId: videoId })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    this.state.player.loadVideoById(this.state.currentVideoId)
+  }
+
+  handleChangeVideo = e => {
+    this.setState({
+      currentVideoId: e.target.id,
+    })
   }
 
   render() {
@@ -37,7 +47,11 @@ export default class VideoView extends Component {
           <MainContainer>
             <VideoSection ref={x => (this.videoPlayer = x)} />
             <VideoControls player={this.state.player} />
-            <VideoSearch videoData={edges} />
+            <VideoList
+              videoData={edges}
+              handleChangeVideo={this.handleChangeVideo}
+              currentVideoId={this.state.currentVideoId}
+            />
           </MainContainer>
         )}
       </Layout>

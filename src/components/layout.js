@@ -30,6 +30,8 @@ const Layout = ({ children, currentView }) => (
             node {
               videoId
               videoName
+              slug
+              collectionAssociation
             }
           }
         }

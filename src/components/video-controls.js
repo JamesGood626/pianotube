@@ -41,6 +41,18 @@ const H3 = styled.h3`
   }
 `
 
+const SliderTimeShiftContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 22rem;
+  }
+`
+
 // props: player, the youtube-player instance, from video-view.js
 export default class VideoControls extends Component {
   state = {
@@ -262,16 +274,18 @@ export default class VideoControls extends Component {
             legendText="End Loop Time:"
             handleInputChange={this.handleInputChange}
           />
-          <CheckboxSlider
-            handleLoopToggle={this.handleLoopToggle}
-            validTimeEntered={validTimeEntered}
-            notifyEnterValidLoopTimes={this.notifyEnterValidLoopTimes}
-            ref={x => (this.checkboxSlider = x)}
-          />
-          <TimeShiftFieldset
-            legendText="Shift Loop Time:"
-            handleShiftTime={this.handleShiftTime}
-          />
+          <SliderTimeShiftContainerDiv>
+            <CheckboxSlider
+              handleLoopToggle={this.handleLoopToggle}
+              validTimeEntered={validTimeEntered}
+              notifyEnterValidLoopTimes={this.notifyEnterValidLoopTimes}
+              ref={x => (this.checkboxSlider = x)}
+            />
+            <TimeShiftFieldset
+              legendText="Shift Loop Time:"
+              handleShiftTime={this.handleShiftTime}
+            />
+          </SliderTimeShiftContainerDiv>
         </Form>
       </Container>
     )

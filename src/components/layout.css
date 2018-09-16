@@ -84,8 +84,7 @@ iframe {
   height: 20px;
   min-height: 20px;
   font-size: 0;
-  margin-top: -1.2rem;
-  margin-left: -1.7rem;
+  margin-left: 0.9rem;
 }
 
 .switch input {
@@ -111,7 +110,8 @@ iframe {
 
 @media (min-width: 480px) {
   .switch {
-    margin-left: -0.9rem;
+    margin-left: 1.3rem;
+    margin-top: -1.6rem;
   }
 
   .slider {

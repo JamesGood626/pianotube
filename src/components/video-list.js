@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
-import VideoSearch from './video-search'
+// import VideoSearch from './video-search'
 import PaginationControls from './pagination-controls'
 import { PlaylistsContainer, VideoListing } from '../styledComponents'
 
@@ -13,18 +13,32 @@ const Container = styled.div`
   margin-bottom: 4rem;
 `
 
+const VideoListingTweaked = VideoListing.extend`
+  h3 {
+    height: 2.4rem;
+  }
+
+  p {
+    height: 1rem;
+  }
+`
+
 const renderVideoList = (videoDataArr, currentVideoId, handleChangeVideo) => {
-  return videoDataArr.map(
-    ({ node: { videoId, videoName, collectionAssociation, slug } }) => {
-      return videoId !== currentVideoId ? (
-        <Link key={`${slug}-video-view-list`} to={`/${slug}/${videoId}`}>
-          <VideoListing id={videoId} onClick={handleChangeVideo}>
-            <h4>{videoName}</h4>
-            <p>{collectionAssociation}</p>
-          </VideoListing>
-        </Link>
-      ) : null
-    }
+  return videoDataArr.reduce(
+    (acc, { node: { videoId, videoName, collectionAssociation, slug } }) => {
+      if (videoId !== currentVideoId) {
+        acc.push(
+          <Link key={`${slug}-video-view-list`} to={`/${slug}/${videoId}`}>
+            <VideoListingTweaked id={videoId} onClick={handleChangeVideo}>
+              <h3>{videoName}</h3>
+              <p>{collectionAssociation}</p>
+            </VideoListingTweaked>
+          </Link>
+        )
+      }
+      return acc
+    },
+    []
   )
 }
 
@@ -78,23 +92,21 @@ export default class VideoList extends Component {
 
   componentDidMount = () => {
     const { videoData } = this.props
-    console.log('THE VIDEO DATA!!! ', videoData)
     const pageCount = determineRequiredPages(videoData)
     const paginationArrays = createPaginationArrays(videoData, pageCount, 9)
-    console.log('THE PAGINATION ARRAYS!!! :', paginationArrays)
     this.setState({
       numberOfPages: pageCount,
       pages: paginationArrays,
     })
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    console.log('UPDATING VIDEO LIST STATE: ', this.state)
-  }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   console.log('UPDATING VIDEO LIST STATE: ', this.state)
+  // }
 
-  handleFilterVideos = e => {
-    console.log('FILTER VIDEOS E: ', e)
-  }
+  // handleFilterVideos = e => {
+  //   console.log('FILTER VIDEOS E: ', e)
+  // }
 
   setStatePageForward = () => {
     if (this.state.currentPage + 1 <= this.state.numberOfPages) {
@@ -125,7 +137,7 @@ export default class VideoList extends Component {
     const { pages, currentPage } = this.state
     return (
       <Container>
-        <VideoSearch handleFilterVideos={this.handleFilterVideos} />
+        {/* <VideoSearch handleFilterVideos={this.handleFilterVideos} /> */}
         <PlaylistsContainer>
           {pages !== null
             ? renderVideoList(

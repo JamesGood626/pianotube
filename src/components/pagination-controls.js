@@ -3,32 +3,37 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 4rem;
   width: 40vw;
 `
 
-const LeftArrow = styled.div`
-  height: 4rem;
-  width: 4rem;
-  background: lime;
-`
+const PaginationButton = styled.button`
+  display: flex;
+  justify-content: center;
+  height: 2.6rem;
+  width: 4.4rem;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: #fcfffc;
+  border: 2px solid #fcfffc;
+  background: transparent;
 
-const RightArrow = styled.div`
-  height: 4rem;
-  width: 4rem;
-  background: yellow;
+  &:hover {
+    background: #72e1d1;
+  }
 `
 
 export default ({ handleChangePage }) => {
   return (
     <Container>
-      <LeftArrow id="backwards" onClick={handleChangePage}>
-        L
-      </LeftArrow>
-      <RightArrow id="forwards" onClick={handleChangePage}>
-        R
-      </RightArrow>
+      <PaginationButton id="backwards" onClick={handleChangePage}>
+        Prev
+      </PaginationButton>
+      <PaginationButton id="forwards" onClick={handleChangePage}>
+        Next
+      </PaginationButton>
     </Container>
   )
 }

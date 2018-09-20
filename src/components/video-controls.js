@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TimeFieldset from './time-fieldset'
 import CheckboxSlider from './checkbox-slider'
 import TimeShiftFieldset from './time-shift-fieldset'
+import DropDownListBox from './drop-down-list-box'
 
 const Container = styled.div`
   position: relative;
@@ -70,6 +71,7 @@ export default class VideoControls extends Component {
     startLoopAtTimeConverted: null,
     endLoopAtTimeConverted: null,
     shiftTime: null,
+    playbackRateSpeed: 1,
   }
 
   componentDidUpdate = async (prevProps, prevState) => {
@@ -235,6 +237,16 @@ export default class VideoControls extends Component {
     })
   }
 
+  // NEED TO FINISH THE IMPLEMENTATION OF THIS.
+  // but yeah I wanted to make the accessible dropdown for this if I implement
+  // it because it'll be the only suitable form control that would look bad if
+  // I use the default one.
+  setPlaybackRate = e => {
+    e.preventDefault()
+    console.log('setting playback')
+    this.props.player.setPlaybackRate(0.5)
+  }
+
   notifyEnterValidLoopTimes = e => {
     this.setState({
       invalidLoopTimeError: 'You must enter a time range to loop over.',
@@ -286,6 +298,8 @@ export default class VideoControls extends Component {
               handleShiftTime={this.handleShiftTime}
             />
           </SliderTimeShiftContainerDiv>
+          <button onClick={this.setPlaybackRate} />
+          <DropDownListBox />
         </Form>
       </Container>
     )

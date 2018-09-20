@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'gatsby'
+// import { Link } from 'gatsby'
 import styled from 'styled-components'
 // import VideoSearch from './video-search'
 import PaginationControls from './pagination-controls'
-import { PlaylistsContainer, VideoListing } from '../styledComponents'
+import PaginationVideoList from './pagination-video-list'
+import { PlaylistsContainer } from '../styledComponents'
 
 const Container = styled.div`
   display: flex;
@@ -13,34 +14,15 @@ const Container = styled.div`
   margin-bottom: 4rem;
 `
 
-const VideoListingTweaked = VideoListing.extend`
-  h3 {
-    height: 2.4rem;
-  }
+// const VideoListingTweaked = VideoListing.extend`
+//   h3 {
+//     height: 2.8rem;
+//   }
 
-  p {
-    height: 1rem;
-  }
-`
-
-const renderVideoList = (videoDataArr, currentVideoId, handleChangeVideo) => {
-  return videoDataArr.reduce(
-    (acc, { node: { videoId, videoName, collectionAssociation, slug } }) => {
-      if (videoId !== currentVideoId) {
-        acc.push(
-          <Link key={`${slug}-video-view-list`} to={`/${slug}/${videoId}`}>
-            <VideoListingTweaked id={videoId} onClick={handleChangeVideo}>
-              <h3>{videoName}</h3>
-              <p>{collectionAssociation}</p>
-            </VideoListingTweaked>
-          </Link>
-        )
-      }
-      return acc
-    },
-    []
-  )
-}
+//   p {
+//     height: 1rem;
+//   }
+// `
 
 const determineRequiredPages = videoArr => {
   const length = videoArr.length
@@ -134,18 +116,22 @@ export default class VideoList extends Component {
   }
 
   render() {
-    const { pages, currentPage } = this.state
+    const { pages, currentPage, numberOfPages } = this.state
+    const nextOrPrevPageIndex =
+      currentPage + 1 <= numberOfPages ? currentPage + 1 : currentPage - 1
     return (
       <Container>
         {/* <VideoSearch handleFilterVideos={this.handleFilterVideos} /> */}
         <PlaylistsContainer>
-          {pages !== null
-            ? renderVideoList(
-                pages[currentPage],
-                this.props.currentVideoId,
-                this.props.handleChangeVideo
-              )
-            : null}
+          {pages !== null ? (
+            <PaginationVideoList
+              videoDataArr={pages[currentPage]}
+              nextVideoDataArr={pages[nextOrPrevPageIndex]}
+              currentVideoId={this.props.currentVideoId}
+              handleChangeVideo={this.props.handleChangeVideo}
+              currentPage={currentPage}
+            />
+          ) : null}
         </PlaylistsContainer>
         <PaginationControls handleChangePage={this.handleChangePage} />
       </Container>

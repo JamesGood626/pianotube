@@ -27,6 +27,7 @@ export default class VideoView extends PureComponent {
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
     const player = YouTubePlayer(this.videoPlayer)
     player.loadVideoById(videoId)
+    console.log('THE PLAYER: ', player)
     this.setState({ player, currentVideoId: videoId })
   }
 

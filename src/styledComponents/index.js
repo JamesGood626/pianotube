@@ -38,7 +38,7 @@ export const VideoListing = styled.div`
   min-height: 8rem;
   max-width: 28rem;
   width: 40vw;
-  min-width: 18rem;
+  min-width: 19rem;
   padding: 0.8rem;
   padding-top: 0;
   margin: 0 1rem 2rem 1rem;

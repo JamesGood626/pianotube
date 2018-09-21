@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import { Container, Fieldset, Input } from './time-fieldset'
 
 const Button = styled.button`
-  height: 2rem;
+  height: 2.2rem;
   width: 9rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #085078;
   background: #fcfffc;
+  cursor: pointer;
 `
 
 export default ({ legendText, handleShiftTime }) => {

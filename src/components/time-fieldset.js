@@ -17,7 +17,7 @@ export const Fieldset = styled.fieldset`
   width: 11rem;
   height: 100%;
   border: none;
-  // background: blue;
+  margin: 0;
 
   legend {
     font-size: 1.2rem;

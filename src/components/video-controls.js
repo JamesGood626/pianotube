@@ -11,6 +11,7 @@ const Container = styled.div`
   min-width: 19rem;
   max-width: 40rem;
   padding: 0;
+  margin-bottom: 6rem;
 `
 
 const Form = styled.form`
@@ -21,12 +22,6 @@ const Form = styled.form`
   width: 100%;
   margin: 0;
   margin-top: 2.4rem;
-
-  @media (min-width: 480px) {
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
 `
 
 const H3 = styled.h3`
@@ -42,7 +37,7 @@ const H3 = styled.h3`
   }
 `
 
-const SliderTimeShiftContainerDiv = styled.div`
+const FlexControlContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,10 +67,6 @@ export default class VideoControls extends Component {
     endLoopAtTimeConverted: null,
     shiftTime: null,
     playbackRateSpeed: 1,
-  }
-
-  componentDidUpdate = async (prevProps, prevState) => {
-    console.log('THE UPDATED STATE: ', this.state)
   }
 
   handleInputChange = e => {
@@ -144,8 +135,6 @@ export default class VideoControls extends Component {
 
   checkValidLoopInterval = () => {
     const { startLoopAtTimeConverted, endLoopAtTimeConverted } = this.state
-    console.log('STARTTIME: ', startLoopAtTimeConverted)
-    console.log('ENDTIME: ', endLoopAtTimeConverted)
     if (
       startLoopAtTimeConverted > this.state.duration ||
       endLoopAtTimeConverted > this.state.duration
@@ -207,11 +196,9 @@ export default class VideoControls extends Component {
   }
 
   handleShiftTime = e => {
-    console.log('SHIFTIN')
     e.preventDefault()
     const { id, value } = e.target
     const updateValue = value !== '' ? parseInt(value) : null
-    console.log('THE UPDATE VALUE: ', updateValue)
     if (id === 'shift-time-input') {
       this.setState({
         shiftTime: updateValue,
@@ -237,14 +224,8 @@ export default class VideoControls extends Component {
     })
   }
 
-  // NEED TO FINISH THE IMPLEMENTATION OF THIS.
-  // but yeah I wanted to make the accessible dropdown for this if I implement
-  // it because it'll be the only suitable form control that would look bad if
-  // I use the default one.
-  setPlaybackRate = e => {
-    e.preventDefault()
-    console.log('setting playback')
-    this.props.player.setPlaybackRate(0.5)
+  setPlaybackRate = rate => {
+    this.props.player.setPlaybackRate(rate)
   }
 
   notifyEnterValidLoopTimes = e => {
@@ -276,30 +257,34 @@ export default class VideoControls extends Component {
           <H3>{this.state.invalidLoopTimeError}</H3>
         ) : null}
         <Form>
-          <TimeFieldset
-            legendText="Start Loop Time:"
-            className="startLoopAtTime"
-            handleInputChange={this.handleInputChange}
+          <CheckboxSlider
+            handleLoopToggle={this.handleLoopToggle}
+            validTimeEntered={validTimeEntered}
+            notifyEnterValidLoopTimes={this.notifyEnterValidLoopTimes}
+            ref={x => (this.checkboxSlider = x)}
           />
-          <TimeFieldset
-            className="endLoopAtTime"
-            legendText="End Loop Time:"
-            handleInputChange={this.handleInputChange}
-          />
-          <SliderTimeShiftContainerDiv>
-            <CheckboxSlider
-              handleLoopToggle={this.handleLoopToggle}
-              validTimeEntered={validTimeEntered}
-              notifyEnterValidLoopTimes={this.notifyEnterValidLoopTimes}
-              ref={x => (this.checkboxSlider = x)}
+          <FlexControlContainer>
+            <TimeFieldset
+              legendText="Start Loop Time:"
+              className="startLoopAtTime"
+              handleInputChange={this.handleInputChange}
             />
+            <TimeFieldset
+              className="endLoopAtTime"
+              legendText="End Loop Time:"
+              handleInputChange={this.handleInputChange}
+            />
+          </FlexControlContainer>
+          <FlexControlContainer>
             <TimeShiftFieldset
               legendText="Shift Loop Time:"
               handleShiftTime={this.handleShiftTime}
             />
-          </SliderTimeShiftContainerDiv>
-          <button onClick={this.setPlaybackRate} />
-          <DropDownListBox />
+            <DropDownListBox
+              instance="video-playback-control"
+              setPlaybackRate={this.setPlaybackRate}
+            />
+          </FlexControlContainer>
         </Form>
       </Container>
     )

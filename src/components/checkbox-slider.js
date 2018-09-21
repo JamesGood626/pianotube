@@ -4,12 +4,8 @@ import styled from 'styled-components'
 const Container = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 4rem;
-
-  @media (min-width: 480px) {
-    height: 10rem;
-  }
+  width: 11rem;
+  height: 3rem;
 `
 
 export default React.forwardRef(

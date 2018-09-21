@@ -14,16 +14,6 @@ const Container = styled.div`
   margin-bottom: 4rem;
 `
 
-// const VideoListingTweaked = VideoListing.extend`
-//   h3 {
-//     height: 2.8rem;
-//   }
-
-//   p {
-//     height: 1rem;
-//   }
-// `
-
 const determineRequiredPages = videoArr => {
   const length = videoArr.length
   let pageCount = Math.floor(length / 9)
@@ -82,14 +72,6 @@ export default class VideoList extends Component {
     })
   }
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   console.log('UPDATING VIDEO LIST STATE: ', this.state)
-  // }
-
-  // handleFilterVideos = e => {
-  //   console.log('FILTER VIDEOS E: ', e)
-  // }
-
   setStatePageForward = () => {
     if (this.state.currentPage + 1 <= this.state.numberOfPages) {
       this.setState((prevState, state) => ({
@@ -121,7 +103,6 @@ export default class VideoList extends Component {
       currentPage + 1 <= numberOfPages ? currentPage + 1 : currentPage - 1
     return (
       <Container>
-        {/* <VideoSearch handleFilterVideos={this.handleFilterVideos} /> */}
         <PlaylistsContainer>
           {pages !== null ? (
             <PaginationVideoList

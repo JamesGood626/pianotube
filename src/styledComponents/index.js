@@ -21,7 +21,6 @@ export const PlaylistsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
-  min-height: 100vh;
   width: 80vw;
   padding-top: 1rem;
 

@@ -31,11 +31,15 @@ export default ({
       {videoDataArr.reduce(
         (
           acc,
-          { node: { videoId, videoName, collectionAssociation, slug } }
+          { node: { videoId, videoName, collectionAssociation, slug } },
+          i
         ) => {
           if (videoId !== currentVideoId) {
             acc.push(
-              <Link key={`${slug}-video-view-list`} to={`/${slug}/${videoId}`}>
+              <Link
+                key={`${slug}-video-view-list-${i}`}
+                to={`/${slug}/${videoId}`}
+              >
                 <VideoListingTweaked id={videoId} onClick={handleChangeVideo}>
                   <h3>{videoName}</h3>
                   <p>{collectionAssociation}</p>

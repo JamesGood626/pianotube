@@ -2,66 +2,66 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import KeyCode from '../keyCodeConfig'
 
-const Span = styled.span`
-  display: block;
-`
+// const Span = styled.span`
+//   display: block;
+// `
 
-const DropDownContainerDiv = styled.div`
-  display: inline-block;
-  position: relative;
-  font-size: 16px;
-  height: 32px;
-  width: 12rem;
-  background: lime;
-  padding: 0;
-`
+// const DropDownContainerDiv = styled.div`
+//   display: inline-block;
+//   position: relative;
+//   font-size: 16px;
+//   height: 32px;
+//   width: 12rem;
+//   background: lime;
+//   padding: 0;
+// `
 
-const DropDownButton = styled.div`
-  background: #3498db;
-  width: 8rem;
-  color: #fff;
-  margin: 0;
-  letter-spacing: 0.025rem;
-  box-sizing: border-box;
-  padding: 10px 30px 10px 20px;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.3s ease;
+// const DropDownButton = styled.div`
+//   background: #3498db;
+//   width: 8rem;
+//   color: #fff;
+//   margin: 0;
+//   letter-spacing: 0.025rem;
+//   box-sizing: border-box;
+//   padding: 10px 30px 10px 20px;
+//   position: relative;
+//   cursor: pointer;
+//   transition: background 0.3s ease;
 
-  &:hover {
-    background: #2980b9;
-    transition: background 0.3s ease;
-  }
-`
+//   &:hover {
+//     background: #2980b9;
+//     transition: background 0.3s ease;
+//   }
+// `
 
-const Arrow = styled.span`
-  display: flex;
-  align-items: center;
-  font-size: 50%;
-  position: absolute;
-  right: 10px;
-  top: 0;
-  height: 37px;
-  // margin-top: auto;
-  // margin-bottom: auto;
-  color: #fff;
-`
+// const Arrow = styled.span`
+//   display: flex;
+//   align-items: center;
+//   font-size: 50%;
+//   position: absolute;
+//   right: 10px;
+//   top: 0;
+//   height: 37px;
+//   // margin-top: auto;
+//   // margin-bottom: auto;
+//   color: #fff;
+// `
 
-const ListBoxUl = styled.ul`
-  padding: 0;
-  list-style: none;
-  box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 100%;
-`
+// const ListBoxUl = styled.ul`
+//   padding: 0;
+//   list-style: none;
+//   box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.2);
+//   position: absolute;
+//   top: 100%;
+// `
 
-const OptionLi = styled.li`
-  background: #fff;
-  padding: 8px 10px 8px 15px;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: background 0.2s ease;
-`
+// const OptionLi = styled.li`
+//   background: #fff;
+//   padding: 8px 10px 8px 15px;
+//   box-sizing: border-box;
+//   cursor: pointer;
+//   transition: background 0.2s ease;
+// `
 
 // New problem to work on.... Need to create a revealing module pattern so that I can have multiple instances of
 // aria dropdowns.... Go through and determine what code is entirely unnecessary.. and then move it into a separate file.
@@ -181,6 +181,10 @@ export default class DropDownListBox extends Component {
     this.listboxNode.addEventListener('focus', this.setupFocus.bind(this))
     this.listboxNode.addEventListener('keydown', this.checkKeyPress.bind(this))
     this.listboxNode.addEventListener('click', this.checkClickItem.bind(this))
+    this.listboxNode.addEventListener(
+      'touchend',
+      this.checkClickItem.bind(this)
+    )
   }
 
   setupFocus = () => {
@@ -439,7 +443,7 @@ export default class DropDownListBox extends Component {
     return (
       <div id="dropdown-select">
         <span id="exp_elem">Select Playback Speed:</span>
-        <span class="triangle" ref={x => (this.arrow = x)}>
+        <span className="triangle" ref={x => (this.arrow = x)}>
           &#9660;
         </span>
         <div

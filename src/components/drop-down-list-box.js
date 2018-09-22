@@ -432,7 +432,6 @@ export default class DropDownListBox extends Component {
       c.toUpperCase()
     )
     currentElement.setAttribute('aria-selected', 'true')
-    console.log('THE ACTIVE DESCENDANTVALUE! ', activeDescendantValue)
     this.props.setPlaybackRate(activeDescendantValue)
   }
 

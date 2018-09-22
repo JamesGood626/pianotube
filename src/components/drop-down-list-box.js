@@ -181,10 +181,7 @@ export default class DropDownListBox extends Component {
     this.listboxNode.addEventListener('focus', this.setupFocus.bind(this))
     this.listboxNode.addEventListener('keydown', this.checkKeyPress.bind(this))
     this.listboxNode.addEventListener('click', this.checkClickItem.bind(this))
-    this.listboxNode.addEventListener(
-      'touchend',
-      this.checkClickItem.bind(this)
-    )
+    this.listboxNode.addEventListener('touch', this.checkClickItem.bind(this))
   }
 
   setupFocus = () => {
@@ -435,6 +432,7 @@ export default class DropDownListBox extends Component {
       c.toUpperCase()
     )
     currentElement.setAttribute('aria-selected', 'true')
+    console.log('THE ACTIVE DESCENDANTVALUE! ', activeDescendantValue)
     this.props.setPlaybackRate(activeDescendantValue)
   }
 

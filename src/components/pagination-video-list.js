@@ -19,6 +19,59 @@ const VideoListingTweaked = VideoListing.extend`
   }
 `
 
+const renderVideoListing = (
+  i,
+  slug,
+  videoId,
+  videoName,
+  collectionAssociation,
+  handleChangeVideo
+) => {
+  return (
+    <Link key={`${slug}-video-view-list=${i}`} to={`/${slug}/${videoId}`}>
+      <VideoListingTweaked id={videoId} onClick={handleChangeVideo}>
+        <h3>{videoName}</h3>
+        <p>{collectionAssociation}</p>
+      </VideoListingTweaked>
+    </Link>
+  )
+}
+
+const renderListings = (
+  acc,
+  i,
+  node,
+  nextVideoDataArr,
+  currentVideoId,
+  handleChangeVideo
+) => {
+  const { videoId, videoName, collectionAssociation, slug } = node
+  if (videoId !== currentVideoId) {
+    acc.push(
+      renderVideoListing(
+        i,
+        slug,
+        videoId,
+        videoName,
+        collectionAssociation,
+        handleChangeVideo
+      )
+    )
+  } else {
+    const data = nextVideoDataArr[0].node
+    acc.push(
+      renderVideoListing(
+        i,
+        data.slug,
+        data.videoId,
+        data.videoName,
+        data.collectionAssociation,
+        handleChangeVideo
+      )
+    )
+  }
+}
+
 export default ({
   videoDataArr,
   nextVideoDataArr,
@@ -28,46 +81,17 @@ export default ({
 }) => {
   return (
     <Container key={`video-list-page-${currentPage}`}>
-      {videoDataArr.reduce(
-        (
+      {videoDataArr.reduce((acc, { node }, i) => {
+        renderListings(
           acc,
-          { node: { videoId, videoName, collectionAssociation, slug } },
-          i
-        ) => {
-          if (videoId !== currentVideoId) {
-            acc.push(
-              <Link
-                key={`${slug}-video-view-list-${i}`}
-                to={`/${slug}/${videoId}`}
-              >
-                <VideoListingTweaked id={videoId} onClick={handleChangeVideo}>
-                  <h3>{videoName}</h3>
-                  <p>{collectionAssociation}</p>
-                </VideoListingTweaked>
-              </Link>
-            )
-          } else {
-            acc.push(
-              <Link
-                key={`${nextVideoDataArr[0].slug}-video-view-list`}
-                to={`/${nextVideoDataArr[0].slug}/${
-                  nextVideoDataArr[0].videoId
-                }`}
-              >
-                <VideoListingTweaked
-                  id={nextVideoDataArr[0].videoId}
-                  onClick={handleChangeVideo}
-                >
-                  <h3>{nextVideoDataArr[0].videoName}</h3>
-                  <p>{nextVideoDataArr[0].collectionAssociation}</p>
-                </VideoListingTweaked>
-              </Link>
-            )
-          }
-          return acc
-        },
-        []
-      )}
+          i,
+          node,
+          nextVideoDataArr,
+          currentVideoId,
+          handleChangeVideo
+        )
+        return acc
+      }, [])}
     </Container>
   )
 }

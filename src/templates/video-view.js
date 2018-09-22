@@ -16,6 +16,7 @@ const MainContainer = styled.div`
   margin-top: 4rem;
 `
 
+// Need to respond to the onPlaybackRateChange event whenever setPlaybackRate is called.
 export default class VideoView extends PureComponent {
   state = {
     player: null,
@@ -26,6 +27,9 @@ export default class VideoView extends PureComponent {
     const { videoId } = this.props.data.allContentfulPianoVideo.edges[0].node
     const player = YouTubePlayer(this.videoPlayer)
     player.loadVideoById(videoId)
+    player.on('playbackRateChange', e => {
+      console.log('THE E: ', e)
+    })
     this.setState({ player, currentVideoId: videoId })
   }
 

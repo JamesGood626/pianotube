@@ -56,7 +56,7 @@ export const VideoListing = styled.div`
     height: 8rem;
     max-width: 28rem;
     width: 40vw;
-    min-width: 18rem;
+    min-width: 19rem;
 
     /* Create the box shadow at expanded size. */
     box-shadow: 0 0 10px 2px #72e1d1;
